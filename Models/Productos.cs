@@ -3,9 +3,9 @@ namespace espacioProducto;
 
 public class Producto
 {
-    int idProducto;
-    string descripcion;
-    int precio;
+    private int idProducto;
+    private string descripcion;
+    private int precio;
 
     public int IdProducto { get => idProducto; set => idProducto = value; }
     public string Descripcion { get => descripcion; set => descripcion = value; }
