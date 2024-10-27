@@ -57,4 +57,29 @@ public class ProductoRepository
             connection.Close();
         }
     }
+    public Producto ObtenerProductoPorId(int id)
+    {
+        Producto prod = new Producto();
+        using (SqliteConnection connection = new SqliteConnection(cadenaConexion))
+        {
+            string query = "SELECT * FROM Productos WHERE idProducto=@id;";
+            SqliteCommand command = new SqliteCommand(query, connection);
+            connection.Open();
+            command.Parameters.Add(new SqliteParameter("@id", id));
+            using (SqliteDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    prod.IdProducto = Convert.ToInt32(reader["idProducto"]);
+                    prod.Descripcion = reader["Descripcion"].ToString();
+                    prod.Precio = Convert.ToInt32(reader["Precio"]);
+                }
+
+            }
+            connection.Close();
+
+        }
+
+        return prod;
+    }
 }

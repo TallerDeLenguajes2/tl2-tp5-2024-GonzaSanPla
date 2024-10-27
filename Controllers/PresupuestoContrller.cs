@@ -34,4 +34,16 @@ public class PresupuestoController : ControllerBase
         repositorioProducto.ModificarProducto(id,producto);
         return Ok();
     }
+
+    [HttpGet("Obtener producto por id")]
+
+    public ActionResult<Producto> ObtenerProdutoPorId(int id)
+    {
+        producto=repositorioProducto.ObtenerProductoPorId(id);
+        if(producto.Descripcion==null)
+        {
+            return NotFound();
+        }
+        return Ok(producto);
+    }
 }
