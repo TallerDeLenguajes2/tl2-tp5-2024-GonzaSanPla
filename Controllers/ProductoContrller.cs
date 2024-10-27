@@ -46,4 +46,12 @@ public class ProductoController : ControllerBase
         }
         return Ok(producto);
     }
+
+    [HttpPut("Eliminar Producto")] //No tendria que poner {id,producto}??? Para que sirve?
+    
+    public ActionResult eliminarProducto(int id)
+    {
+        repositorioProducto.EliminarProducto(id);
+        return Ok();
+    }
 }
