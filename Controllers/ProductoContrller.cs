@@ -5,7 +5,7 @@ namespace tl2_tp5_2024_GonzaSanPla.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class PresupuestoController : ControllerBase
+public class ProductoController : ControllerBase
 {
     private static ProductoRepository repositorioProducto = new ProductoRepository();
     Producto producto = new Producto();
