@@ -11,7 +11,7 @@ public class ProductoController : ControllerBase
     Producto producto = new Producto();
 
     [HttpPost("Cargar producto")]   //No tendria que poner {producto}??? Para que sirve?
-    public ActionResult cargarProduto(string descripcionProducto,int precio)
+    public ActionResult cargarProduto(string descripcionProducto,int precio) //Por que no podia mandar todo el producto de una?
     {
         producto.Descripcion = descripcionProducto;
         producto.Precio = precio;
