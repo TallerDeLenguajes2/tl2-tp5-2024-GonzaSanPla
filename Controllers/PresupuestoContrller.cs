@@ -7,19 +7,31 @@ namespace tl2_tp5_2024_GonzaSanPla.Controllers;
 [Route("[controller]")]
 public class PresupuestoController : ControllerBase
 {
-    public static Producto producto =new Producto();
-    private static ProductoRepository repositorioProducto= new ProductoRepository();
-    
-    // [HttpPost("Cargar producto")]
-    // public ActionResult cargarProduto([FromBody]Producto nuevoProducto)
-    // {
+    private static ProductoRepository repositorioProducto = new ProductoRepository();
+    Producto producto = new Producto();
 
-    //     return Ok(repositorioProducto.ListarProductos());
-    // }
+    [HttpPost("Cargar producto")]   //No tendria que poner {producto}??? Para que sirve?
+    public ActionResult cargarProduto(string descripcionProducto,int precio)
+    {
+        producto.Descripcion = descripcionProducto;
+        producto.Precio = precio;
+        repositorioProducto.CrearNuevo(producto);
+        return Created();
+    }
 
     [HttpGet("Listar Productos")]
-    public ActionResult listarProducto()
+    public ActionResult<List<Producto>> listarProducto()
     {
         return Ok(repositorioProducto.ListarProductos());
+    }
+
+    [HttpPut("Modificar Producto")] //No tendria que poner {id,producto}??? Para que sirve?
+    
+    public ActionResult modficarProducto(int id,string descripcionProducto,int precio )
+    {
+        producto.Descripcion=descripcionProducto;
+        producto.Precio=precio;
+        repositorioProducto.ModificarProducto(id,producto);
+        return Ok();
     }
 }
