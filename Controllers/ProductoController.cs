@@ -10,7 +10,7 @@ public class ProductoController : ControllerBase
     private static ProductoRepository repositorioProducto = new ProductoRepository();
     Producto producto = new Producto();
 
-    [HttpPost("Cargar producto")]   //No tendria que poner {producto}??? Para que sirve?
+    [HttpPost("Cargarproducto")]   //No tendria que poner {producto}??? Para que sirve?
     public ActionResult cargarProduto(string descripcionProducto,int precio) //Por que no podia mandar todo el producto de una?
     {
         producto.Descripcion = descripcionProducto;
@@ -19,13 +19,13 @@ public class ProductoController : ControllerBase
         return Created();
     }
 
-    [HttpGet("Listar Productos")]
+    [HttpGet("ListarProductos")]
     public ActionResult<List<Producto>> listarProducto()
     {
         return Ok(repositorioProducto.ListarProductos());
     }
 
-    [HttpPut("Modificar Producto")] //No tendria que poner {id,producto}??? Para que sirve?
+    [HttpPut("ModificarProducto/{id}")] //No tendria que poner {id,producto}??? Para que sirve?
     
     public ActionResult modficarProducto(int id,string descripcionProducto,int precio )
     {

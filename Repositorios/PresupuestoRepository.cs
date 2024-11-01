@@ -3,8 +3,8 @@ using espacioPresupuestosDetalle;
 using Microsoft.Data.Sqlite;
 
 namespace espacioPresupuestoRepository;
-public class PresupuestoRepository  
-{  
+public class PresupuestoRepository
+{
     string cadenaConexion = @"Data Source=Tienda.db;Cache=Shared";
     public void CrearNuevoPresupuesto(Presupuesto pres)        // Que tipo es fecha? Porque en la BD es un string 
     {
@@ -20,7 +20,7 @@ public class PresupuestoRepository
         }
     }
 
-    public void CrearNuevoDetalle(int idPrespuesto,PresupuestoDetalle detalles)  // El idProducto mando como int o mando el producto o lo mando dentro de detalle? Se qchequea que el producto existe?
+    public void CrearNuevoDetalle(int idPrespuesto, PresupuestoDetalle detalles)  // El idProducto mando como int o mando el producto o lo mando dentro de detalle? Se qchequea que el producto existe?
     {
         using (SqliteConnection connection = new SqliteConnection(cadenaConexion))
         {
@@ -34,9 +34,9 @@ public class PresupuestoRepository
             connection.Close();
         }
     }
-     public List<Presupuesto> ListarProductos()
+    public List<Presupuesto> ListarPresupuestos()
     {
-        List<Presupuesto> listaPres= new List<Presupuesto>();
+        List<Presupuesto> listaPres = new List<Presupuesto>();
         using (SqliteConnection connection = new SqliteConnection(cadenaConexion))
         {
             string query = "SELECT * FROM Presupuestos;";
@@ -58,4 +58,5 @@ public class PresupuestoRepository
         }
         return listaPres;
     }
+    
 }

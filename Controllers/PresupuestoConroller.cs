@@ -32,6 +32,6 @@ public class PresupuestoController : ControllerBase
     [HttpGet("Listar Productos")]
     public ActionResult<List<Presupuesto>> listarProducto()
     {
-        return Ok(presupuestoRepositorio.ListarProductos());
+        return Ok(presupuestoRepositorio.ListarPresupuestos());
     }
 }
