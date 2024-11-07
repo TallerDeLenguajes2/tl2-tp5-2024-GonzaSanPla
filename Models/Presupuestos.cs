@@ -53,4 +53,8 @@ public class Presupuesto
     {
         return Detalle.Count();
     }
+    public void CargarDetallesPresupuesto(List<PresupuestoDetalle> presupuestoDetalles)
+    {
+        detalle=presupuestoDetalles;
+    }
 }

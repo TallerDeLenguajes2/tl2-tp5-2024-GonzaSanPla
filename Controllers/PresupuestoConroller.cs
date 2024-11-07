@@ -1,37 +1,46 @@
 using Microsoft.AspNetCore.Mvc;
 using espacioPresupuestoRepository;
+using espacioProductoRepository;
 using espacioPresupuestos;
 using espacioPresupuestosDetalle;
+using espacioProducto;
 namespace tl2_tp5_2024_GonzaSanPla.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class PresupuestoController : ControllerBase
 {
-    private PresupuestoRepository presupuestoRepositorio= new PresupuestoRepository();
+    private PresupuestoRepository presupuestoRepository = new PresupuestoRepository();
+    private ProductoRepository productoRepository = new ProductoRepository();
     private Presupuesto presupuesto = new Presupuesto();
-    private PresupuestoDetalle detalle= new PresupuestoDetalle();
-
-    [HttpPost("Cargar presupuesto")]  
-    public ActionResult cargarPresupuesto(string nombreDestinatario,string fechaCreacion) // Hago que ingrese la fecha o uso la fecha actual? 
+    public PresupuestoController()
     {
-        presupuesto.NombreDestinatario=nombreDestinatario;
-        presupuesto.FechaCreacion=fechaCreacion;
-        presupuestoRepositorio.CrearNuevoPresupuesto(presupuesto);
+
+    }
+
+    [HttpPost("CargarPresupuesto")]
+    public ActionResult cargarPresupuesto(string nombreDestinatario, string fechaCreacion) // Hago que ingrese la fecha o uso la fecha actual? 
+    {
+        presupuesto.NombreDestinatario = nombreDestinatario;
+        presupuesto.FechaCreacion = fechaCreacion;
+        presupuestoRepository.CrearNuevoPresupuesto(presupuesto);
         return Created();
     }
 
-    [HttpPost("Cargar detalles presupuesto")]  
-    public ActionResult cargarPresupuestoDetalle(int idPrespuesto,int idProducto,int cantidad) // El idProducto mando como int o mando el producto? Se qchequea que el producto existe?
+    [HttpPost("CargarDetallesPresupuesto")]
+    public ActionResult cargarPresupuestoDetalle(int idPrespuesto, int idProducto, int cantidad) // El idProducto mando como int o mando el producto? Se qchequea que el producto existe?
     {
-        detalle.Cantidad=cantidad;
-        detalle.Producto.IdProducto=idProducto;
-        presupuestoRepositorio.CrearNuevoDetalle(idPrespuesto,detalle);
+        Producto nuevoProducto = new Producto();
+        PresupuestoDetalle detalle = new PresupuestoDetalle();
+        nuevoProducto = productoRepository.ObtenerProductoPorId(idProducto);
+        detalle.Cantidad = cantidad;
+        detalle.CargarProducto(nuevoProducto);
+        presupuestoRepository.CrearNuevoDetalle(idPrespuesto, detalle);
         return Created();
     }
-    [HttpGet("Listar Productos")]
+    [HttpGet("ListarPresupuestos")]
     public ActionResult<List<Presupuesto>> listarProducto()
     {
-        return Ok(presupuestoRepositorio.ListarPresupuestos());
+        return Ok(presupuestoRepository.ListarPresupuestos());
     }
 }
